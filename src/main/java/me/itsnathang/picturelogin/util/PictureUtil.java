@@ -31,7 +31,7 @@ public class PictureUtil {
 
     private URL newURL(String player_uuid, String player_name) {
         String url = null;
-        if (Hooks.SKINSRESTORER) {
+        if (Hooks.SKINSRESTORER && PictureLogin.skinsRestorerAPI.getSkinName(player_name) != null) {
             url = config.getURL()
                     .replace("%uuid%", player_uuid)
                     .replace("%pname%", PictureLogin.skinsRestorerAPI.getSkinName(player_name));
