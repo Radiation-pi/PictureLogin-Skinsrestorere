@@ -24,9 +24,6 @@ import static me.itsnathang.picturelogin.util.Translate.tl;
 public class PictureUtil {
     private final PictureLogin plugin;
     private final ConfigManager config;
-
-    private SkinsRestorerAPI skinsRestorerAPI;
-
     public PictureUtil(PictureLogin plugin) {
         this.plugin = plugin;
         this.config = plugin.getConfigManager();
@@ -37,7 +34,7 @@ public class PictureUtil {
         if (Hooks.SKINSRESTORER) {
             url = config.getURL()
                     .replace("%uuid%", player_uuid)
-                    .replace("%pname%", skinsRestorerAPI.getSkinName(player_name));
+                    .replace("%pname%", PictureLogin.skinsRestorerAPI.getSkinName(player_name));
         } else {
             url = config.getURL()
                     .replace("%uuid%", player_uuid)
