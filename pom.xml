@@ -12,7 +12,7 @@
     <name>Picture Login</name>
 
     <properties>
-        <author>NathanG, _NickV</author>
+        <author>NathanG, _NickV, xiaozhangup</author>
         <mainClass>me.itsnathang.picturelogin.PictureLogin</mainClass>
     </properties>
 
@@ -110,12 +110,12 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>2.4</version>
+                <version>3.0.2</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>3.2.4</version>
+                <version>3.3.0</version>
                 <configuration>
                     <relocations>
                         <relocation>

@@ -7,6 +7,7 @@ import me.itsnathang.picturelogin.config.FallbackPicture;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.skinsrestorer.api.SkinsRestorerAPI;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -24,15 +25,24 @@ public class PictureUtil {
     private final PictureLogin plugin;
     private final ConfigManager config;
 
+    private SkinsRestorerAPI skinsRestorerAPI;
+
     public PictureUtil(PictureLogin plugin) {
         this.plugin = plugin;
         this.config = plugin.getConfigManager();
     }
 
     private URL newURL(String player_uuid, String player_name) {
-        String url = config.getURL()
-                .replace("%uuid%", player_uuid)
-                .replace("%pname%", player_name);
+        String url = null;
+        if (Hooks.SKINSRESTORER) {
+            url = config.getURL()
+                    .replace("%uuid%", player_uuid)
+                    .replace("%pname%", skinsRestorerAPI.getSkinName(player_name));
+        } else {
+            url = config.getURL()
+                    .replace("%uuid%", player_uuid)
+                    .replace("%pname%", player_name);
+        }
         try {
             return new URL(url);
         } catch (Exception e) {
