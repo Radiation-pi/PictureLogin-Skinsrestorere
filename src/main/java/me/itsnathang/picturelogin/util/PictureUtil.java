@@ -4,10 +4,6 @@ import me.clip.placeholderapi.PlaceholderAPI;
 import me.itsnathang.picturelogin.PictureLogin;
 import me.itsnathang.picturelogin.config.ConfigManager;
 import me.itsnathang.picturelogin.config.FallbackPicture;
-import net.kyori.adventure.audience.Audience;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.minimessage.MiniMessage;
-import net.skinsrestorer.api.SkinsRestorerAPI;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -28,11 +24,11 @@ public class PictureUtil {
     }
 
     private URL newURL(String player_uuid, String player_name) {
-        String url = null;
-        if (Hooks.SKINSRESTORER && PictureLogin.skinsRestorerAPI.getSkinName(player_name) != null) {
+        String url;
+        if (Hooks.SKINSRESTORER && PictureLogin.skinsRestorerAPI.getSkinStorage().findSkinData(player_name).isPresent()) {
             url = config.getURL()
                     .replace("%uuid%", player_uuid)
-                    .replace("%pname%", PictureLogin.skinsRestorerAPI.getSkinName(player_name));
+                    .replace("%pname%", PictureLogin.skinsRestorerAPI.getSkinStorage().findSkinData(player_name).get().getProperty().getValue());
         } else {
             url = config.getURL()
                     .replace("%uuid%", player_uuid)

@@ -10,6 +10,8 @@ import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static me.itsnathang.picturelogin.util.Translate.translateString;
@@ -42,10 +44,11 @@ public class BaseCommand implements CommandExecutor, TabCompleter {
             return true;
         }
 
-        if (!(s instanceof Player player)) {
+        if (!(s instanceof Player)) {
             s.sendMessage(ChatColor.RED + "The test command can only be ran in-game.");
             return true;
         }
+        Player player = (Player) s;
 
         // Test command allows admins to test the images they've configured
         if (args[0].equalsIgnoreCase("test")) {
@@ -55,9 +58,18 @@ public class BaseCommand implements CommandExecutor, TabCompleter {
             }
 
             switch (args[1]) {
-                case "leave" -> util.getLeaveMessage(player).sendToPlayer(player);
-                case "join" -> util.sendImage(player);
-                case "first-join" -> util.getFirstJoinMessage(player).sendToPlayer(player);
+                case "leave": {
+                    util.getLeaveMessage(player).sendToPlayer(player);
+                    break;
+                }
+                case "join": {
+                    util.sendImage(player);
+                    break;
+                }
+                case "first-join": {
+                    util.getFirstJoinMessage(player).sendToPlayer(player);
+                    break;
+                }
             }
         }
 
@@ -67,19 +79,19 @@ public class BaseCommand implements CommandExecutor, TabCompleter {
     @Override
     public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args) {
         if (!sender.hasPermission("picturelogin.main")) {
-            return List.of();
+            return Collections.emptyList();
         }
 
         if (args.length == 1) {
-            return getResults(args, List.of("reload", "test"));
+            return getResults(args, Arrays.asList("reload", "test"));
         }
 
         // Sub-commands for the test command
         if (args.length == 2 && args[0].equalsIgnoreCase("test")) {
-            return getResults(args, List.of("first-join", "join", "leave"));
+            return getResults(args, Arrays.asList("first-join", "join", "leave"));
         }
 
-        return List.of(); // Empty list to stop further tab completion
+        return Collections.emptyList(); // Empty list to stop further tab completion
     }
 
     private List<String> getResults(String[] args, List<String> toSearch) {

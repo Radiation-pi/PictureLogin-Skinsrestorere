@@ -7,7 +7,8 @@ import me.itsnathang.picturelogin.listeners.QuitListener;
 import me.itsnathang.picturelogin.util.Hooks;
 import me.itsnathang.picturelogin.util.PictureUtil;
 import me.itsnathang.picturelogin.util.Updater;
-import net.skinsrestorer.api.SkinsRestorerAPI;
+import net.skinsrestorer.api.SkinsRestorer;
+import net.skinsrestorer.api.SkinsRestorerProvider;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -22,7 +23,7 @@ public class PictureLogin extends JavaPlugin {
     private ConfigManager configManager;
     private PictureUtil pictureUtil;
 
-    public static SkinsRestorerAPI skinsRestorerAPI;
+    public static SkinsRestorer skinsRestorerAPI;
 
     @Override
     public void onEnable() {
@@ -33,7 +34,7 @@ public class PictureLogin extends JavaPlugin {
         new Hooks(getServer().getPluginManager(), configManager, getLogger());
 
         if (Hooks.SKINSRESTORER) {
-            skinsRestorerAPI = SkinsRestorerAPI.getApi();
+            skinsRestorerAPI = SkinsRestorerProvider.get();
         }
 
         // Initialize Picture Utility
