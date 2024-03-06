@@ -13,6 +13,8 @@ public class Hooks {
     public static boolean AUTHME;
     public static boolean PLACEHOLDER_API;
 
+    public static boolean SKINSRESTORER;
+
     public Hooks(PluginManager plugins, ConfigManager config, Logger logger) {
         this.plugins = plugins;
         this.config = config;
@@ -20,6 +22,7 @@ public class Hooks {
 
         AUTHME = hookPlugin("AuthMe");
         PLACEHOLDER_API = hookPlugin("PlaceholderAPI");
+        SKINSRESTORER = hookPlugin("SkinsRestorer");
     }
 
     private boolean hookPlugin(String plugin) {
@@ -35,5 +38,4 @@ public class Hooks {
         logger.info(() -> "Hooked into: " + plugin);
         return true;
     }
-
 }

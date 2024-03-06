@@ -1,7 +1,6 @@
 package me.itsnathang.picturelogin.util;
 
 import de.themoep.minedown.MineDown;
-import me.itsnathang.picturelogin.PictureLogin;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -9,7 +8,6 @@ import java.awt.Color;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
-import java.util.logging.Level;
 
 public class ImageMessage {
     private final static char TRANSPARENT_CHAR = ' ';
@@ -114,7 +112,7 @@ public class ImageMessage {
                 previousCode = false;
                 isBold = c == 'l' || c == 'L';
             } else {
-                var dFI = DefaultFontInfo.getDefaultFontInfo(c);
+                DefaultFontInfo dFI = DefaultFontInfo.getDefaultFontInfo(c);
                 messagePxSize += isBold ? dFI.getBoldLength() : dFI.getLength();
                 messagePxSize++;
             }

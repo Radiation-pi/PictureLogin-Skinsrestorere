@@ -7,6 +7,8 @@ import me.itsnathang.picturelogin.listeners.QuitListener;
 import me.itsnathang.picturelogin.util.Hooks;
 import me.itsnathang.picturelogin.util.PictureUtil;
 import me.itsnathang.picturelogin.util.Updater;
+import net.skinsrestorer.api.SkinsRestorer;
+import net.skinsrestorer.api.SkinsRestorerProvider;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -21,6 +23,8 @@ public class PictureLogin extends JavaPlugin {
     private ConfigManager configManager;
     private PictureUtil pictureUtil;
 
+    public static SkinsRestorer skinsRestorerAPI;
+
     @Override
     public void onEnable() {
         // load config & languages file
@@ -28,6 +32,10 @@ public class PictureLogin extends JavaPlugin {
 
         // Register Plugin Hooks
         new Hooks(getServer().getPluginManager(), configManager, getLogger());
+
+        if (Hooks.SKINSRESTORER) {
+            skinsRestorerAPI = SkinsRestorerProvider.get();
+        }
 
         // Initialize Picture Utility
         pictureUtil = new PictureUtil(this);

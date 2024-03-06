@@ -1,7 +1,7 @@
 package me.itsnathang.picturelogin.util;
 
-import com.google.gson.JsonParser;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -23,7 +23,7 @@ public class Updater {
             connection.addRequestProperty("User-Agent", USER_AGENT);// Set User-Agent
 
             // Read downloaded file
-            var streamReader = new InputStreamReader(connection.getInputStream());
+            InputStreamReader streamReader = new InputStreamReader(connection.getInputStream());
             JsonObject jsonObject = new JsonParser().parse(streamReader).getAsJsonObject();
 
             String latest_version = jsonObject.get("name").toString().replace("\"", "");

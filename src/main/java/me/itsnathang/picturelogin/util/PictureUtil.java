@@ -18,16 +18,22 @@ import static me.itsnathang.picturelogin.util.Translate.translateString;
 public class PictureUtil {
     private final PictureLogin plugin;
     private final ConfigManager config;
-
     public PictureUtil(PictureLogin plugin) {
         this.plugin = plugin;
         this.config = plugin.getConfigManager();
     }
 
     private URL newURL(String player_uuid, String player_name) {
-        String url = config.getURL()
-                .replace("%uuid%", player_uuid)
-                .replace("%pname%", player_name);
+        String url;
+        if (Hooks.SKINSRESTORER && PictureLogin.skinsRestorerAPI.getSkinStorage().findSkinData(player_name).isPresent()) {
+            url = config.getURL()
+                    .replace("%uuid%", player_uuid)
+                    .replace("%pname%", PictureLogin.skinsRestorerAPI.getSkinStorage().findSkinData(player_name).get().getProperty().getValue());
+        } else {
+            url = config.getURL()
+                    .replace("%uuid%", player_uuid)
+                    .replace("%pname%", player_name);
+        }
         try {
             return new URL(url);
         } catch (Exception e) {
